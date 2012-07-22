@@ -10,3 +10,11 @@
 *.lai
 *.la
 *.a
+
+# MSVC stuff
+*.ncb
+*.suo
+*.aps
+*.vcproj.*.user
+Debug
+Release
