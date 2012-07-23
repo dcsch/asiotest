@@ -7,6 +7,7 @@
 #include "AsioTest.h"
 #include "AsioTestDlg.h"
 #include "ASIOSoundSystem.h"
+#include "WASAPISoundSystem.h"
 #include "FileReader.h"
 #include "WinMIDIController.h"
 
@@ -62,7 +63,8 @@ BOOL CAsioTestApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	_ss = new CMI::ASIOSoundSystem();
+//	_ss = new CMI::ASIOSoundSystem();
+	_ss = new CMI::WASAPISoundSystem();
 	_ss->Initialise();
 
 	CMI::FileReader fileReader;

@@ -18,7 +18,7 @@ public:
 
 	virtual void PlaySample() = 0;
 
-	virtual void GenerateSineWaveSample() = 0;
+//	virtual void GenerateSineWaveSample() = 0;
 };
 
 } //namespace CMI

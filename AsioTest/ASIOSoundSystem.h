@@ -1,8 +1,6 @@
 #pragma once
 
 #include "SoundSystem.h"
-#include "EssenceContentHandler.h"
-#include "EssenceErrorHandler.h"
 #include "asiosys.h"
 #include "asio.h"
 #include "asiodrivers.h"
@@ -11,9 +9,7 @@ namespace CMI
 {
 
 class ASIOSoundSystem :
-	public SoundSystem,
-	public EssenceContentHandler, // TODO: Put these handlers in a delegate
-	public EssenceErrorHandler
+	public SoundSystem
 {
 public:
 	ASIOSoundSystem();
@@ -29,40 +25,6 @@ public:
 	virtual void PlaySample();
 
 	virtual void GenerateSineWaveSample();
-
-public:
-    virtual UInt8* allocateBuffer(
-        const EssenceReader* reader,
-        UInt32 trackIndex,
-        const UL& ul,
-        UInt32 length) throw();
-
-	virtual void freeBuffer(
-        const EssenceReader* reader,
-        UInt32 trackIndex,
-        const UL& ul,
-        UInt8* buffer) throw();
-
-    virtual bool deliver(
-        const EssenceReader* reader,
-        UInt32 trackIndex,
-        const UL& ul,
-        UInt8* buffer,
-        UInt32 dataLength,
-        UInt64 position,
-        UInt32 deliveryFlags,
-        UInt8 editUnitFlags,
-        UInt32 editUnit,
-        const Rational& editRate) throw();
-
-    virtual void endOfStream(
-        const EssenceReader* reader,
-        UInt32 trackIndex,
-        const UL& ul) throw();
-
-	virtual void warning(const EssenceReader* reader, UInt32 code, Position position) throw();
-
-	virtual void error(const EssenceReader* reader, UInt32 code, Position position) throw();
 
 private:
 	enum {

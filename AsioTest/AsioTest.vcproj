@@ -268,7 +268,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\WASAPISoundSystem.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\WaveAudioEssenceReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WaveAudioLoader.cpp"
 				>
 			</File>
 			<File
@@ -398,7 +406,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\WASAPISoundSystem.h"
+				>
+			</File>
+			<File
 				RelativePath=".\WaveAudioEssenceReader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WaveAudioLoader.h"
 				>
 			</File>
 			<File

@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "common.h"
 #include "ASIOSoundSystem.h"
-#include "WaveAudioEssenceReader.h"
+#include "WaveAudioLoader.h"
 
 #define ASIO_DRIVER_NAME    "ASIO4ALL v2"
 #define TEST_RUN_TIME  20.0		// run for 20 seconds
@@ -76,18 +76,8 @@ void ASIOSoundSystem::Finalise()
 
 void ASIOSoundSystem::LoadSample(Reader &reader)
 {
-	WaveAudioEssenceReader *waer = new WaveAudioEssenceReader(0, this, this, &Rational(25, 1));
-	waer->initialise(&reader);
-
-	_bufferLength = waer->getDataLength();
-	_buffer = new UInt8[(unsigned int)_bufferLength];
-
-	while (waer->nextEditUnit())
-	{
-	}
-	waer->finalise();
-	delete waer;
-	waer = 0;
+	WaveAudioLoader loader;
+	loader.Load(reader, &_buffer, &_bufferLength);
 }
 
 void ASIOSoundSystem::PlaySample()
@@ -473,57 +463,6 @@ long ASIOSoundSystem::asioMessages(long selector, long value, void* message, dou
 			break;
 	}
 	return ret;
-}
-
-UInt8 *ASIOSoundSystem::allocateBuffer(
-    const EssenceReader* reader,
-    UInt32 trackIndex,
-    const UL& ul,
-    UInt32 length) throw()
-{
-	UInt8 *ptr = _buffer + _bufferOffset;
-	_bufferOffset += length;
-	return ptr;
-}
-
-void ASIOSoundSystem::freeBuffer(
-    const EssenceReader* reader,
-    UInt32 trackIndex,
-    const UL& ul,
-    UInt8* buffer) throw()
-{
-	// NOP
-}
-
-bool ASIOSoundSystem::deliver(
-    const EssenceReader* reader,
-    UInt32 trackIndex,
-    const UL& ul,
-    UInt8* buffer,
-    UInt32 dataLength,
-    UInt64 position,
-    UInt32 deliveryFlags,
-    UInt8 editUnitFlags,
-    UInt32 editUnit,
-    const Rational& editRate) throw()
-{
-	// Data has already been copied into the buffer, so no work is required here
-	return true;
-}
-
-void ASIOSoundSystem::endOfStream(
-    const EssenceReader* reader,
-    UInt32 trackIndex,
-    const UL& ul) throw()
-{
-}
-
-void ASIOSoundSystem::warning(const EssenceReader* reader, UInt32 code, Position position) throw()
-{
-}
-
-void ASIOSoundSystem::error(const EssenceReader* reader, UInt32 code, Position position) throw()
-{
 }
 
 } //namespace CMI
