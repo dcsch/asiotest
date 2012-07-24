@@ -44,7 +44,10 @@ void MIDIController::OnMIDIMessage(UInt8 status, UInt8 data1, UInt8 data2, UInt3
 		OnMIDINoteOff(status & 0x0F, data1, data2);
 		break;
 	case 0x90:
-		OnMIDINoteOn(status & 0x0F, data1, data2);
+		if (data2 > 0) // Velocity 0 is note off
+			OnMIDINoteOn(status & 0x0F, data1, data2);
+		else
+			OnMIDINoteOff(status & 0x0F, data1, data2);
 		break;
 	}
 }

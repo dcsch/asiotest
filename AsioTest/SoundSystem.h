@@ -8,17 +8,23 @@ class Reader;
 class SoundSystem
 {
 public:
-	virtual ~SoundSystem() { };
+	SoundSystem();
 
-	virtual void Initialise() = 0;
+	virtual ~SoundSystem();
 
-	virtual void Finalise() = 0;
+	virtual void Initialise();
 
-	virtual void LoadSample(Reader &reader) = 0;
+	virtual void Finalise();
+
+	virtual void LoadSample(Reader &reader);
 
 	virtual void PlaySample() = 0;
 
 //	virtual void GenerateSineWaveSample() = 0;
+
+protected:
+	UInt8 *_buffer;
+	Length _bufferLength;
 };
 
 } //namespace CMI

@@ -20,8 +20,6 @@ public:
 
 	virtual void Finalise();
 
-	virtual void LoadSample(Reader &reader);
-
 	virtual void PlaySample();
 
 	virtual void GenerateSineWaveSample();
@@ -76,8 +74,6 @@ private:
 	// Signal the end of processing in this example
 	bool           stopped;
 
-	UInt8 *_buffer;
-	Length _bufferLength;
 	Position _bufferOffset;
 
 	UInt8 *_playPtr;

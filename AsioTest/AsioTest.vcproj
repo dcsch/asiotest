@@ -68,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib"
+				AdditionalDependencies="winmm.lib avrt.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -237,6 +237,10 @@
 			</File>
 			<File
 				RelativePath=".\RIFFReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundSystem.cpp"
 				>
 			</File>
 			<File

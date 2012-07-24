@@ -1,7 +1,6 @@
 #include "StdAfx.h"
 #include "common.h"
 #include "ASIOSoundSystem.h"
-#include "WaveAudioLoader.h"
 
 #define ASIO_DRIVER_NAME    "ASIO4ALL v2"
 #define TEST_RUN_TIME  20.0		// run for 20 seconds
@@ -20,8 +19,7 @@ static ASIOSoundSystem *ass;
 ASIOCallbacks asioCallbacks;
 
 ASIOSoundSystem::ASIOSoundSystem() :
-	_buffer(0),
-	_bufferLength(0),
+	SoundSystem(),
 	_bufferOffset(0),
 	_playPtr(0)
 {
@@ -34,6 +32,8 @@ ASIOSoundSystem::~ASIOSoundSystem()
 
 void ASIOSoundSystem::Initialise()
 {
+	SoundSystem::Initialise();
+
 	if (loadAsioDriver(ASIO_DRIVER_NAME))
 	{
 		// initialize the driver
@@ -68,16 +68,12 @@ void ASIOSoundSystem::Initialise()
 
 void ASIOSoundSystem::Finalise()
 {
+	SoundSystem::Finalise();
+
 	ASIOStop();
 	ASIODisposeBuffers();
 	ASIOExit();
 	asioDrivers->removeCurrentDriver();
-}
-
-void ASIOSoundSystem::LoadSample(Reader &reader)
-{
-	WaveAudioLoader loader;
-	loader.Load(reader, &_buffer, &_bufferLength);
 }
 
 void ASIOSoundSystem::PlaySample()
