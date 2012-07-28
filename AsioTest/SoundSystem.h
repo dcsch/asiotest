@@ -21,7 +21,7 @@ public:
 
 	virtual void setSession(Session *session);
 
-	virtual void play();
+	virtual void play(UInt8 keyNumber);
 
 protected:
 	Session *_session;

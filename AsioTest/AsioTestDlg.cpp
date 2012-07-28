@@ -153,5 +153,5 @@ HCURSOR CAsioTestDlg::OnQueryDragIcon()
 
 void CAsioTestDlg::OnBnClickedPreviewButton()
 {
-	theApp.GetSoundSystem()->play();
+	theApp.GetSoundSystem()->play(60);
 }

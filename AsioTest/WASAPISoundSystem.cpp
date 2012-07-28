@@ -199,9 +199,9 @@ void WASAPISoundSystem::Finalise()
     SAFE_RELEASE(_renderClient)
 }
 
-void WASAPISoundSystem::play()
+void WASAPISoundSystem::play(UInt8 keyNumber)
 {
-	SoundSystem::play();
+	SoundSystem::play(keyNumber);
 
 	_offset = 0;
 }

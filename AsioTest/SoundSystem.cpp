@@ -35,7 +35,7 @@ void SoundSystem::setSession(Session *session)
 	_session = session;
 }
 
-void SoundSystem::play()
+void SoundSystem::play(UInt8 keyNumber)
 {
 	const Instrument *instrument = _session->getInstrument(0);
 	const Sample *sample = instrument->getSample(0);

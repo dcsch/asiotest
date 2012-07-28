@@ -59,7 +59,7 @@ void MIDIController::OnMIDINoteOff(UInt8 channel, UInt8 keyNumber, UInt8 velocit
 void MIDIController::OnMIDINoteOn(UInt8 channel, UInt8 keyNumber, UInt8 velocity)
 {
 	if (_soundOutput)
-		_soundOutput->play();
+		_soundOutput->play(keyNumber);
 }
 
 } //namespace CMI

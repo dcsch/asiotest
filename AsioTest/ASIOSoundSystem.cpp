@@ -77,9 +77,9 @@ void ASIOSoundSystem::Finalise()
 	asioDrivers->removeCurrentDriver();
 }
 
-void ASIOSoundSystem::play()
+void ASIOSoundSystem::play(UInt8 keyNumber)
 {
-	SoundSystem::play();
+	SoundSystem::play(keyNumber);
 
 	//_playPtr = _samples[0]->getBuffer();
 }

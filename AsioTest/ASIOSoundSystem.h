@@ -20,7 +20,7 @@ public:
 
 	virtual void Finalise();
 
-	virtual void play();
+	virtual void play(UInt8 keyNumber);
 
 private:
 	enum {
