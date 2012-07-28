@@ -28,7 +28,7 @@ public:
 
 	virtual void Finalise();
 
-	virtual void PlaySample();
+	virtual void play();
 
 	STDMETHOD_(ULONG, AddRef)();
 	STDMETHOD_(ULONG, Release)();

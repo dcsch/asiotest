@@ -224,6 +224,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Instrument.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MIDIController.cpp"
 				>
 			</File>
@@ -237,6 +241,14 @@
 			</File>
 			<File
 				RelativePath=".\RIFFReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Sample.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Session.cpp"
 				>
 			</File>
 			<File
@@ -358,6 +370,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Instrument.h"
+				>
+			</File>
+			<File
 				RelativePath=".\IOBase.h"
 				>
 			</File>
@@ -383,6 +399,14 @@
 			</File>
 			<File
 				RelativePath=".\RIFFReader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Sample.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Session.h"
 				>
 			</File>
 			<File

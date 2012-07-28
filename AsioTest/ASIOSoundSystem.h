@@ -20,9 +20,7 @@ public:
 
 	virtual void Finalise();
 
-	virtual void PlaySample();
-
-	virtual void GenerateSineWaveSample();
+	virtual void play();
 
 private:
 	enum {
@@ -76,7 +74,7 @@ private:
 
 	Position _bufferOffset;
 
-	UInt8 *_playPtr;
+	const UInt8 *_playPtr;
 
 	long init_asio_static_data();
 

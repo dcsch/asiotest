@@ -1,14 +1,15 @@
 #include "StdAfx.h"
 #include "common.h"
 #include "SoundSystem.h"
-#include "WaveAudioLoader.h"
+#include "Session.h"
+#include "Instrument.h"
+#include "Sample.h"
 
 namespace CMI
 {
 
 SoundSystem::SoundSystem() :
-	_buffer(0),
-	_bufferLength(0)
+	_session(0)
 {
 }
 
@@ -24,10 +25,21 @@ void SoundSystem::Finalise()
 {
 }
 
-void SoundSystem::LoadSample(Reader &reader)
+const Session *SoundSystem::getSession() const
 {
-	WaveAudioLoader loader;
-	loader.Load(reader, &_buffer, &_bufferLength);
+	return _session;
+}
+
+void SoundSystem::setSession(Session *session)
+{
+	_session = session;
+}
+
+void SoundSystem::play()
+{
+	const Instrument *instrument = _session->getInstrument(0);
+	const Sample *sample = instrument->getSample(0);
+	_samples[0] = sample;
 }
 
 } //namespace CMI

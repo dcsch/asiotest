@@ -198,9 +198,11 @@ void WASAPISoundSystem::Finalise()
     SAFE_RELEASE(_renderClient)
 }
 
-void WASAPISoundSystem::PlaySample()
+void WASAPISoundSystem::play()
 {
-	_playPtr = _buffer;
+	SoundSystem::play();
+
+//	_playPtr = _buffer;
 }
 
 void WASAPISoundSystem::Begin()
@@ -300,7 +302,8 @@ DWORD WASAPISoundSystem::DoRenderThread()
 				{
 					if (_playPtr)
 					{
-						Length samplesAvailable = (_buffer + _bufferLength - _playPtr) / 2;
+//						Length samplesAvailable = (_buffer + _bufferLength - _playPtr) / 2;
+						Length samplesAvailable = 0;
 						if (samplesAvailable > 0)
 						{
 							Int16 *src = reinterpret_cast<Int16 *>(_playPtr);

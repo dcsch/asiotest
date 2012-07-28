@@ -3,7 +3,8 @@
 namespace CMI
 {
 
-class Reader;
+class Session;
+class Sample;
 
 class SoundSystem
 {
@@ -16,15 +17,16 @@ public:
 
 	virtual void Finalise();
 
-	virtual void LoadSample(Reader &reader);
+	virtual const Session *getSession() const;
 
-	virtual void PlaySample() = 0;
+	virtual void setSession(Session *session);
 
-//	virtual void GenerateSineWaveSample() = 0;
+	virtual void play();
 
 protected:
-	UInt8 *_buffer;
-	Length _bufferLength;
+	Session *_session;
+	static const UInt32 MaxPolyphonyCount = 96;
+	const Sample *_samples[MaxPolyphonyCount];
 };
 
 } //namespace CMI

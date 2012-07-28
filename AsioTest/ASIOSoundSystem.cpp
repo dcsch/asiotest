@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "common.h"
 #include "ASIOSoundSystem.h"
+#include "Sample.h"
 
 #define ASIO_DRIVER_NAME    "ASIO4ALL v2"
 #define TEST_RUN_TIME  20.0		// run for 20 seconds
@@ -76,20 +77,11 @@ void ASIOSoundSystem::Finalise()
 	asioDrivers->removeCurrentDriver();
 }
 
-void ASIOSoundSystem::PlaySample()
+void ASIOSoundSystem::play()
 {
-	_playPtr = _buffer;
-}
+	SoundSystem::play();
 
-void ASIOSoundSystem::GenerateSineWaveSample()
-{
-	_bufferLength = 96000;
-	_buffer = new UInt8[(unsigned int)_bufferLength];
-//	Int16 *ptr = _buffer;
-	for (int i = 0; i < 48000; ++i)
-	{
-//		ptr = 16385 * sin(
-	}
+	_playPtr = _samples[0]->getBuffer();
 }
 
 long ASIOSoundSystem::init_asio_static_data()
@@ -278,10 +270,10 @@ ASIOTime *ASIOSoundSystem::bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, 
 
 				if (i % 2 == 1 && ass->_playPtr)
 				{
-					Length samplesAvailable = (ass->_buffer + ass->_bufferLength - ass->_playPtr) / 2;
+					Length samplesAvailable = (ass->_samples[0]->getBuffer() + ass->_samples[0]->getBufferLength() - ass->_playPtr) / 2;
 					if (samplesAvailable > 0)
 					{
-						Int16 *src = reinterpret_cast<Int16 *>(ass->_playPtr);
+						const Int16 *src = reinterpret_cast<const Int16 *>(ass->_playPtr);
 						Int32 *dst = static_cast<Int32 *>(ass->bufferInfos[i].buffers[index]);
 						for (long j = 0; j < buffSize; ++j)
 						{

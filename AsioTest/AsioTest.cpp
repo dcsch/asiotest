@@ -10,6 +10,9 @@
 #include "WASAPISoundSystem.h"
 #include "FileReader.h"
 #include "WinMIDIController.h"
+#include "Session.h"
+#include "Instrument.h"
+#include "Sample.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -52,7 +55,7 @@ BOOL CAsioTestApp::InitInstance()
 	InitCtrls.dwICC = ICC_WIN95_CLASSES;
 	InitCommonControlsEx(&InitCtrls);
 
-	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+//	CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
 	CWinAppEx::InitInstance();
 
@@ -65,16 +68,24 @@ BOOL CAsioTestApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-//	_ss = new CMI::ASIOSoundSystem();
-	_ss = new CMI::WASAPISoundSystem(30);
+	_ss = new CMI::ASIOSoundSystem();
+//	_ss = new CMI::WASAPISoundSystem(30);
 	_ss->Initialise();
 
 	CMI::FileReader fileReader;
 	fileReader.open(L"C:\\CMI30A\\OPMWind\\sax-alto.wav");
 
-	_ss->LoadSample(fileReader);
-
+	CMI::Sample *sample = new CMI::Sample();
+	sample->Load(fileReader);
 	fileReader.close();
+
+	CMI::Instrument *instrument = new CMI::Instrument();
+	instrument->setSample(0, sample);
+
+	CMI::Session *session = new CMI::Session();
+	session->setInstrument(0, instrument);
+
+	_ss->setSession(session);
 
 	_midiController = new CMI::WinMIDIController();
 	_midiController->Initialise(0, 0);
