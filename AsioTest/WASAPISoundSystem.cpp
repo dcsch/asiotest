@@ -2,6 +2,7 @@
 #include "common.h"
 #include "WASAPISoundSystem.h"
 #include <avrt.h>
+#include "Sample.h"
 
 // REFERENCE_TIME time units per second and per millisecond
 #define REFTIMES_PER_SEC  10000000
@@ -33,7 +34,7 @@ WASAPISoundSystem::WASAPISoundSystem(UInt32 latency) :
     _audioSamplesReadyEvent(0),
 	_engineLatencyInMS(latency),
 	_bufferSize(0),
-	_playPtr(0)
+	_offset(-1)
 {
 }
 
@@ -202,7 +203,7 @@ void WASAPISoundSystem::play()
 {
 	SoundSystem::play();
 
-//	_playPtr = _buffer;
+	_offset = 0;
 }
 
 void WASAPISoundSystem::Begin()
@@ -300,43 +301,14 @@ DWORD WASAPISoundSystem::DoRenderThread()
 
 				if (SUCCEEDED(hr))
 				{
-					if (_playPtr)
+					if (_offset > -1)
 					{
-//						Length samplesAvailable = (_buffer + _bufferLength - _playPtr) / 2;
-						Length samplesAvailable = 0;
-						if (samplesAvailable > 0)
-						{
-							Int16 *src = reinterpret_cast<Int16 *>(_playPtr);
-							float *dst = reinterpret_cast<float *>(pData);
-							for (UINT32 j = 0; j < framesAvailable; ++j)
-							{
-								if (j <= samplesAvailable)
-								{
-									float sample = (float)*src / 32767.0f;
-									src++;
-
-									*dst = sample;
-									dst++;
-
-									// skip the other channel
-									*dst = sample;
-									dst++;
-								}
-								else
-								{
-									*dst = 0;
-									dst++;
-
-									*dst = 0;
-									dst++;
-								}
-							}
-							_playPtr += (2 * framesAvailable);
-						}
+						UInt32 processedFrameCount =
+							process(_offset, reinterpret_cast<float *>(pData), framesAvailable);
+						if (processedFrameCount)
+							_offset += processedFrameCount;
 						else
-						{
-							_playPtr = 0;
-						}
+							_offset = -1;
 					}
 
 					hr = _renderClient->ReleaseBuffer(framesAvailable, 0);

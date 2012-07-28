@@ -55,7 +55,7 @@ BOOL CAsioTestApp::InitInstance()
 	InitCtrls.dwICC = ICC_WIN95_CLASSES;
 	InitCommonControlsEx(&InitCtrls);
 
-//	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
 	CWinAppEx::InitInstance();
 
@@ -68,8 +68,8 @@ BOOL CAsioTestApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	_ss = new CMI::ASIOSoundSystem();
-//	_ss = new CMI::WASAPISoundSystem(30);
+//	_ss = new CMI::ASIOSoundSystem();
+	_ss = new CMI::WASAPISoundSystem(30);
 	_ss->Initialise();
 
 	CMI::FileReader fileReader;

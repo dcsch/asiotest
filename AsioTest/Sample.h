@@ -13,11 +13,11 @@ public:
 
 	void Load(Reader &reader);
 
-	const UInt8 *getBuffer() const { return _buffer; }
+	const float *getBuffer() const { return _buffer; }
 	Length getBufferLength() const { return _bufferLength; }
 
 private:
-	UInt8 *_buffer;
+	float *_buffer;
 	Length _bufferLength;
 };
 

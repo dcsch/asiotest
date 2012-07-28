@@ -53,7 +53,7 @@ private:
     RenderSampleType _renderSampleType;
 	UINT32 _bufferSize;
 
-	UInt8 *_playPtr;
+	Position _offset;
 
 	bool CalculateMixFormatType();
 

@@ -68,8 +68,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib avrt.lib"
+				AdditionalDependencies="winmm.lib avrt.lib libsamplerate-0.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -403,6 +404,10 @@
 			</File>
 			<File
 				RelativePath=".\Sample.h"
+				>
+			</File>
+			<File
+				RelativePath=".\samplerate.h"
 				>
 			</File>
 			<File

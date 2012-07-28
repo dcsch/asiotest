@@ -81,7 +81,7 @@ void ASIOSoundSystem::play()
 {
 	SoundSystem::play();
 
-	_playPtr = _samples[0]->getBuffer();
+	//_playPtr = _samples[0]->getBuffer();
 }
 
 long ASIOSoundSystem::init_asio_static_data()
@@ -270,7 +270,8 @@ ASIOTime *ASIOSoundSystem::bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, 
 
 				if (i % 2 == 1 && ass->_playPtr)
 				{
-					Length samplesAvailable = (ass->_samples[0]->getBuffer() + ass->_samples[0]->getBufferLength() - ass->_playPtr) / 2;
+					//Length samplesAvailable = (ass->_samples[0]->getBuffer() + ass->_samples[0]->getBufferLength() - ass->_playPtr) / 2;
+					Length samplesAvailable = 0;
 					if (samplesAvailable > 0)
 					{
 						const Int16 *src = reinterpret_cast<const Int16 *>(ass->_playPtr);
