@@ -30,6 +30,8 @@ public:
 
 	virtual void play(UInt8 keyNumber);
 
+	virtual UInt32 getSampleRate() const;
+
 	STDMETHOD_(ULONG, AddRef)();
 	STDMETHOD_(ULONG, Release)();
 

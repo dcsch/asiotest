@@ -203,6 +203,11 @@ void WASAPISoundSystem::play(UInt8 keyNumber)
 	SoundSystem::play(keyNumber);
 }
 
+UInt32 WASAPISoundSystem::getSampleRate() const
+{
+	return _wfx->nSamplesPerSec;
+}
+
 void WASAPISoundSystem::Begin()
 {
     _renderThread = CreateThread(NULL, 0, WASAPIRenderThread, this, 0, NULL);

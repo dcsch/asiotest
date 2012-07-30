@@ -1,7 +1,6 @@
 #include "StdAfx.h"
 #include "common.h"
 #include "WaveAudioLoader.h"
-#include "WaveAudioEssenceReader.h"
 
 namespace CMI
 {
@@ -19,6 +18,7 @@ void WaveAudioLoader::Load(Reader &reader, UInt8 **buffer, Length *bufferLen)
 	WaveAudioEssenceReader *waer = new WaveAudioEssenceReader(0, this, this, &Rational(25, 1));
 	waer->initialise(&reader);
 
+	memcpy(&_fmt, waer->getFormatChunk(), sizeof(WaveAudioEssenceReader::fmt_ck));
 	_bufferLength = waer->getDataLength();
 	_buffer = new UInt8[(unsigned int)_bufferLength];
 	_bufferOffset = 0;

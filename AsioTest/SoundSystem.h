@@ -23,6 +23,8 @@ public:
 
 	virtual void play(UInt8 keyNumber);
 
+	virtual UInt32 getSampleRate() const = 0;
+
 protected:
 	Session *_session;
 	static const UInt32 MaxPolyphonyCount = 96;

@@ -9,7 +9,9 @@ namespace CMI
 
 Sample::Sample() :
 	_buffer(0),
-	_frameCount(0)
+	_frameCount(0),
+	_rate(0),
+	_channels(0)
 {
 }
 
@@ -25,16 +27,30 @@ void Sample::Load(Reader &reader)
 	WaveAudioLoader loader;
 	loader.Load(reader, &rawBuffer, &rawBufferLength);
 
-	// Convert to 2-channel
-	Length rawBufferLength2 = 2 * rawBufferLength;
-	UInt8 *rawBuffer2 = new UInt8[(UInt32)rawBufferLength2];
-	Int16 *src = reinterpret_cast<Int16 *>(rawBuffer);
-	Int16 *dst = reinterpret_cast<Int16 *>(rawBuffer2);
-	for (UInt32 i = 0; i < rawBufferLength / 2; ++i)
+	_rate = loader.getFormatChunk()->nSamplesPerSec;
+	_channels = loader.getFormatChunk()->nChannels;
+
+	Length rawBufferLength2;
+	UInt8 *rawBuffer2;
+	if (_channels == 1)
 	{
-		Int16 sample = *src++;
-		*dst++ = sample;
-		*dst++ = sample;
+		// Convert to 2-channel
+		rawBufferLength2 = 2 * rawBufferLength;
+		rawBuffer2 = new UInt8[(UInt32)rawBufferLength2];
+		Int16 *src = reinterpret_cast<Int16 *>(rawBuffer);
+		Int16 *dst = reinterpret_cast<Int16 *>(rawBuffer2);
+		for (UInt32 i = 0; i < rawBufferLength / 2; ++i)
+		{
+			Int16 sample = *src++;
+			*dst++ = sample;
+			*dst++ = sample;
+		}
+		_channels = 2;
+	}
+	else
+	{
+		rawBufferLength2 = rawBufferLength;
+		rawBuffer2 = rawBuffer;
 	}
 
 	// Convert to a float buffer

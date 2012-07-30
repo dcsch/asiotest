@@ -13,7 +13,7 @@ SoundSystem::SoundSystem() :
 	_session(0)
 {
 	for (UInt32 i = 0; i < MaxPolyphonyCount; ++i)
-		_sampleStreams[i] = new SampleStream();
+		_sampleStreams[i] = new SampleStream(this);
 }
 
 SoundSystem::~SoundSystem()

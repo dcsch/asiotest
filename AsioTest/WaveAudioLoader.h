@@ -2,6 +2,7 @@
 
 #include "EssenceContentHandler.h"
 #include "EssenceErrorHandler.h"
+#include "WaveAudioEssenceReader.h"
 
 namespace CMI
 {
@@ -15,6 +16,8 @@ class WaveAudioLoader :
 public:
 	WaveAudioLoader();
 	~WaveAudioLoader();
+
+	const WaveAudioEssenceReader::fmt_ck *getFormatChunk() const { return &_fmt; }
 
 	void WaveAudioLoader::Load(Reader &reader, UInt8 **buffer, Length *bufferLen);
 
@@ -59,6 +62,7 @@ private:
 	UInt8 *_buffer;
 	Length _bufferLength;
 	Position _bufferOffset;
+	WaveAudioEssenceReader::fmt_ck _fmt;
 };
 
 } //namespace CMI

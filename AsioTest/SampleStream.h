@@ -6,12 +6,13 @@ typedef struct SRC_STATE_tag SRC_STATE ;
 namespace CMI
 {
 
+class SoundSystem;
 class Sample;
 
 class SampleStream
 {
 public:
-	SampleStream();
+	SampleStream(SoundSystem *ss);
 	virtual ~SampleStream();
 
 	const Sample *getSample() const;
@@ -25,6 +26,7 @@ public:
 	virtual UInt32 read(float *frameBuffer, UInt32 frameCount);
 
 private:
+	SoundSystem *_ss;
 	const Sample *_sample;
 	Position _offset;
 	UInt8 _keyNumber;

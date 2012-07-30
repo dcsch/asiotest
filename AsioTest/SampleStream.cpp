@@ -2,12 +2,14 @@
 #include "common.h"
 #include "SampleStream.h"
 #include "Sample.h"
+#include "SoundSystem.h"
 #include "samplerate.h"
+#include <math.h>
 
 namespace CMI
 {
 
-SampleStream::SampleStream() : _sample(0), _offset(-1), _src(0)
+SampleStream::SampleStream(SoundSystem *ss) : _ss(ss), _sample(0), _offset(-1), _src(0)
 {
 }
 
@@ -46,6 +48,16 @@ void SampleStream::start(const Sample *sample, UInt8 keyNumber)
 
 UInt32 SampleStream::read(float *frameBuffer, UInt32 frameCount)
 {
+	double outputScaling = (double)_ss->getSampleRate() / _sample->getRate();
+
+	double f = pow(2.0, (_keyNumber - 69) / 12.0) * 440.0;
+
+	const double C3 = 261.62556530059862;
+	double noteRatio = C3 / f;
+	
+	// TODO This needs to be checked with samples with rates that don't match the output
+	double scaledRatio = noteRatio * outputScaling;
+
 	if (_src == 0)
 	{
 		int error;
@@ -63,7 +75,7 @@ UInt32 SampleStream::read(float *frameBuffer, UInt32 frameCount)
 	srcData.input_frames = min(1000, samplesAvailable);
 	srcData.data_out = frameBuffer;
 	srcData.output_frames = frameCount;
-	srcData.src_ratio = 1.0;
+	srcData.src_ratio = scaledRatio;
 	srcData.end_of_input = 0;
 
 	src_process(_src, &srcData);
