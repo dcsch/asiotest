@@ -59,7 +59,8 @@ void Sample::Load(Reader &reader)
 	src_short_to_float_array((const short *)rawBuffer2, _buffer, (int)rawBufferLength2 / 2);
 
 	delete [] rawBuffer;
-	delete [] rawBuffer2;
+	if (rawBuffer2 != rawBuffer)
+		delete [] rawBuffer2;
 }
 
 } //namespace CMI
