@@ -14,11 +14,12 @@ public:
 	void Load(Reader &reader);
 
 	const float *getBuffer() const { return _buffer; }
-	Length getBufferLength() const { return _bufferLength; }
+	float *getBuffer() { return _buffer; }
+	Length getFrameCount() const { return _frameCount; }
 
 private:
 	float *_buffer;
-	Length _bufferLength;
+	Length _frameCount;
 };
 
 } //namespace CMI

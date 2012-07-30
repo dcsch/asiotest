@@ -53,8 +53,6 @@ private:
     RenderSampleType _renderSampleType;
 	UINT32 _bufferSize;
 
-	Position _offset;
-
 	bool CalculateMixFormatType();
 
 	static DWORD __stdcall WASAPIRenderThread(LPVOID context);

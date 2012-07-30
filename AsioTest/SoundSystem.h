@@ -4,7 +4,7 @@ namespace CMI
 {
 
 class Session;
-class Sample;
+class SampleStream;
 
 class SoundSystem
 {
@@ -26,9 +26,9 @@ public:
 protected:
 	Session *_session;
 	static const UInt32 MaxPolyphonyCount = 96;
-	const Sample *_samples[MaxPolyphonyCount];
+	SampleStream *_sampleStreams[MaxPolyphonyCount];
 
-	virtual UInt32 process(Position offset, float *frameBuffer, UInt32 frameCount);
+	virtual UInt32 process(float *frameBuffer, UInt32 frameCount);
 };
 
 } //namespace CMI

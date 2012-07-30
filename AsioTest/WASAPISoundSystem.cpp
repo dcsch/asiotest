@@ -33,8 +33,7 @@ WASAPISoundSystem::WASAPISoundSystem(UInt32 latency) :
     _shutdownEvent(0),
     _audioSamplesReadyEvent(0),
 	_engineLatencyInMS(latency),
-	_bufferSize(0),
-	_offset(-1)
+	_bufferSize(0)
 {
 }
 
@@ -202,8 +201,6 @@ void WASAPISoundSystem::Finalise()
 void WASAPISoundSystem::play(UInt8 keyNumber)
 {
 	SoundSystem::play(keyNumber);
-
-	_offset = 0;
 }
 
 void WASAPISoundSystem::Begin()
@@ -301,15 +298,7 @@ DWORD WASAPISoundSystem::DoRenderThread()
 
 				if (SUCCEEDED(hr))
 				{
-					if (_offset > -1)
-					{
-						UInt32 processedFrameCount =
-							process(_offset, reinterpret_cast<float *>(pData), framesAvailable);
-						if (processedFrameCount)
-							_offset += processedFrameCount;
-						else
-							_offset = -1;
-					}
+					process(reinterpret_cast<float *>(pData), framesAvailable);
 
 					hr = _renderClient->ReleaseBuffer(framesAvailable, 0);
 					if (!SUCCEEDED(hr))

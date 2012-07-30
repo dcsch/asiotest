@@ -249,6 +249,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SampleStream.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Session.cpp"
 				>
 			</File>
@@ -408,6 +412,10 @@
 			</File>
 			<File
 				RelativePath=".\samplerate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SampleStream.h"
 				>
 			</File>
 			<File
