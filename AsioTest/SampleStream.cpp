@@ -9,12 +9,19 @@
 namespace CMI
 {
 
-SampleStream::SampleStream(SoundSystem *ss) : _ss(ss), _sample(0), _offset(-1), _src(0)
+SampleStream::SampleStream(SoundSystem *ss) :
+	_ss(ss),
+	_sample(0),
+	_offset(-1),
+	_src(0),
+	_mutex(0)
 {
+	_mutex = CreateMutexEx(NULL, NULL, 0, 0);
 }
 
 SampleStream::~SampleStream()
 {
+	CloseHandle(_mutex);
 }
 
 const Sample *SampleStream::getSample() const
@@ -41,13 +48,24 @@ UInt32 SampleStream::getSamplesAvailable() const
 
 void SampleStream::start(const Sample *sample, UInt8 keyNumber)
 {
+	WaitForSingleObject(_mutex, INFINITE);
+
 	_sample = sample;
 	_keyNumber = keyNumber;
 	_offset = 0;
+
+	if (_src)
+	{
+		src_reset(_src);
+	}
+
+	ReleaseMutex(_mutex);
 }
 
 UInt32 SampleStream::read(float *frameBuffer, UInt32 frameCount)
 {
+	WaitForSingleObject(_mutex, INFINITE);
+
 	double outputScaling = (double)_ss->getSampleRate() / _sample->getRate();
 
 	double f = pow(2.0, (_keyNumber - 69) / 12.0) * 440.0;
@@ -79,6 +97,8 @@ UInt32 SampleStream::read(float *frameBuffer, UInt32 frameCount)
 	srcData.end_of_input = 0;
 
 	src_process(_src, &srcData);
+
+	ReleaseMutex(_mutex);
 
 	_offset += srcData.input_frames_used;
 
