@@ -1,5 +1,6 @@
 #include "common.h"
 #include "UL.h"
+#include <memory.h>
 
 namespace CMI
 {

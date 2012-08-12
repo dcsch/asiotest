@@ -22,6 +22,8 @@
 
 #endif //_WIN32
 
+#include <stdint.h>
+
 #include <iostream>
 #include <string>
 #include <map>

@@ -1,10 +1,10 @@
-#include "StdAfx.h"
 #include "common.h"
 #include "SampleStream.h"
 #include "Sample.h"
 #include "SoundSystem.h"
-#include "samplerate.h"
+#include <samplerate.h>
 #include <math.h>
+#include <memory.h>
 
 namespace CMI
 {
@@ -16,12 +16,12 @@ SampleStream::SampleStream(SoundSystem *ss) :
 	_src(0),
 	_mutex(0)
 {
-	_mutex = CreateMutexEx(NULL, NULL, 0, 0);
+//	_mutex = CreateMutexEx(NULL, NULL, 0, 0);
 }
 
 SampleStream::~SampleStream()
 {
-	CloseHandle(_mutex);
+//	CloseHandle(_mutex);
 }
 
 const Sample *SampleStream::getSample() const
@@ -40,7 +40,7 @@ UInt32 SampleStream::getSamplesAvailable() const
 	if (_sample)
 	{
 		Length samplesAvailable = _sample->getFrameCount() - _offset;
-		return static_cast<UInt32>(max(samplesAvailable, 0));
+        return static_cast<UInt32>(std::max(samplesAvailable, 0LL));
 	}
 
 	return 0;
@@ -48,7 +48,7 @@ UInt32 SampleStream::getSamplesAvailable() const
 
 void SampleStream::start(const Sample *sample, UInt8 keyNumber)
 {
-	WaitForSingleObject(_mutex, INFINITE);
+//	WaitForSingleObject(_mutex, INFINITE);
 
 	_sample = sample;
 	_keyNumber = keyNumber;
@@ -59,12 +59,12 @@ void SampleStream::start(const Sample *sample, UInt8 keyNumber)
 		src_reset(_src);
 	}
 
-	ReleaseMutex(_mutex);
+//	ReleaseMutex(_mutex);
 }
 
 UInt32 SampleStream::read(float *frameBuffer, UInt32 frameCount)
 {
-	WaitForSingleObject(_mutex, INFINITE);
+//	WaitForSingleObject(_mutex, INFINITE);
 
 	double outputScaling = (double)_ss->getSampleRate() / _sample->getRate();
 
@@ -90,7 +90,7 @@ UInt32 SampleStream::read(float *frameBuffer, UInt32 frameCount)
 	SRC_DATA srcData;
 	memset(&srcData, 0, sizeof(SRC_DATA));
 	srcData.data_in = const_cast<float *>(_sample->getBuffer()) + 2 * _offset;
-	srcData.input_frames = min(1000, samplesAvailable);
+    srcData.input_frames = std::min(1000U, samplesAvailable);
 	srcData.data_out = frameBuffer;
 	srcData.output_frames = frameCount;
 	srcData.src_ratio = scaledRatio;
@@ -98,7 +98,7 @@ UInt32 SampleStream::read(float *frameBuffer, UInt32 frameCount)
 
 	src_process(_src, &srcData);
 
-	ReleaseMutex(_mutex);
+//	ReleaseMutex(_mutex);
 
 	_offset += srcData.input_frames_used;
 

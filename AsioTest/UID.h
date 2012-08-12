@@ -2,7 +2,7 @@
 #define CMI_UID_H__
 
 #include <stdio.h>
-#include <memory>
+#include <memory.h>
 
 namespace CMI
 {

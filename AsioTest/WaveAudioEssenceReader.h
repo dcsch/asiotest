@@ -58,7 +58,7 @@ public:
     virtual const UInt8* getHeaderData(UInt32 track) const;
 
     /// Returns the length of the raw header data buffer.
-    virtual const UInt32 getHeaderDataLength(UInt32 track) const;
+    virtual UInt32 getHeaderDataLength(UInt32 track) const;
 
     /// Initialiser
     /// \param reader The Reader from which the raw data will be read.

@@ -183,7 +183,7 @@ const UInt8* WaveAudioEssenceReader::getHeaderData(UInt32 track) const
     return 0;
 }
 
-const UInt32 WaveAudioEssenceReader::getHeaderDataLength(UInt32 track) const
+UInt32 WaveAudioEssenceReader::getHeaderDataLength(UInt32 track) const
 {
 #pragma unused(track)
     return 0;

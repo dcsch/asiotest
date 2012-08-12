@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "common.h"
 #include "Session.h"
 

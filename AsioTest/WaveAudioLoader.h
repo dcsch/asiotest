@@ -19,7 +19,7 @@ public:
 
 	const WaveAudioEssenceReader::fmt_ck *getFormatChunk() const { return &_fmt; }
 
-	void WaveAudioLoader::Load(Reader &reader, UInt8 **buffer, Length *bufferLen);
+    void Load(Reader &reader, UInt8 **buffer, Length *bufferLen);
 
 	// EssenceContentHandler
 

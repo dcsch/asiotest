@@ -31,7 +31,8 @@ private:
 	Position _offset;
 	UInt8 _keyNumber;
 	SRC_STATE *_src;
-	HANDLE _mutex;
+//	HANDLE _mutex;
+    int _mutex;
 };
 
 } //namespace CMI

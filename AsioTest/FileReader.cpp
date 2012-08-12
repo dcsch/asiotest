@@ -4,6 +4,8 @@
 #ifdef __GNUC__
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <cstdio>
+#include <cstdlib>
 #endif //__GNUC__
 
 namespace CMI

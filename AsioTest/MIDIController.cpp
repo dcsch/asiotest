@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "common.h"
 #include "MIDIController.h"
 #include "SoundSystem.h"
