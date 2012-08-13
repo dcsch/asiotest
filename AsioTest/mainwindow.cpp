@@ -6,13 +6,15 @@
 #include "Session.h"
 #include "JACKSoundSystem.h"
 
+#define CLIENT_NAME "CMI"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
 //    _ss = new CMI::ASIOSoundSystem();
 //    _ss = new CMI::WASAPISoundSystem(30);
-    _ss = new CMI::JACKSoundSystem();
+    _ss = new CMI::JACKSoundSystem(CLIENT_NAME);
     _ss->Initialise();
 
     CMI::FileReader fileReader;

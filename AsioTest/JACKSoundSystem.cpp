@@ -4,7 +4,7 @@
 namespace CMI
 {
 
-JACKSoundSystem::JACKSoundSystem() : SoundSystem()
+JACKSoundSystem::JACKSoundSystem(const std::string &clientName) : SoundSystem(), _clientName(clientName), _client(0)
 {
 }
 
@@ -16,6 +16,7 @@ void JACKSoundSystem::Initialise()
 {
     SoundSystem::Initialise();
 
+    _client = jack_client_open(_clientName.c_str(), JackNoStartServer, NULL);
 }
 
 void JACKSoundSystem::Finalise()
